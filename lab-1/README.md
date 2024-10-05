@@ -360,7 +360,7 @@ default int getDiffNumber();
 Сейчас сигнатуры `ExpressionTaskGenerator` и `EquationTaskGenerator` выглядят не очень красиво, приходится передавать туда 4 була для каждого оператора. Сделайте `enum Operation` внутри интерфейса `MathTask` и передавайте в `ExpressionTaskGenerator` и `EquationTaskGenerator` вместо булов `EnumSet`.
 
 ## ★★ Generic ExpressionTask и EquationTask
-Сделайте, чтобы `ExpressionTaskGenerator` и `EquationTaskGenerator` работал с произвольным типом `T`, расширяющим `Number`. Также нужно изменить сигнатуру в методах `getMinNumber()`, `getMaxNumnber()`, `getDiffNumber` интерфейса `MathTask`, чтобы они возвращали `T`.
+Сделайте, чтобы `ExpressionTaskGenerator` и `EquationTaskGenerator` работал с произвольным типом `T`, расширяющим `Number`. Для реализации скорее всего вам поможет метод `doubleValue()`, который определен у `Number`. Также нужно изменить сигнатуру в методах `getMinNumber()`, `getMaxNumnber()`, `getDiffNumber` интерфейса `MathTask`, чтобы они возвращали `double`.
 
 ## ★ UML
 В каком-нибудь онлайн UML-редакторе (если очень хочется, можно и в пеинте) сделайте схему с участием всех интерфейсов и классов. Это схему нужно приложить в AnyTask к ссылке на github.
