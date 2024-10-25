@@ -35,7 +35,6 @@ class Quiz {
 
     Task nextTask() {
         if (!IncorrectInput && this.left != 0) {
-            this.left--;
             try {
                 currentTask = generator.generate();
             } catch (Exception e) {
@@ -49,9 +48,11 @@ class Quiz {
     Result provideAnswer(String answer) {
         Result res = this.currentTask.validate(answer);
         if (res == Result.OK) {
+            this.left--;
             this.IncorrectInput = false;
             this.CorrectAnswerNumber++;
         } else if (res == Result.WRONG) {
+            this.left--;
             this.IncorrectInput = false;
             this.WrongAnswerNumber++;
         } else {
@@ -86,7 +87,7 @@ class Quiz {
                     .println("Amount of tasks in your Pool is less then amount you want to do \nSo this is the end");
         }
         double tmp = ((double) this.CorrectAnswerNumber / (this.CorrectAnswerNumber + this.WrongAnswerNumber));
-        double mark = Math.round(tmp * 100.0) / 100.0;
-        return mark * 10;
+        int mark = (int)(tmp * 100.0);
+        return mark / 10.0;
     }
 }

@@ -15,7 +15,7 @@ import by.volkovets.quizer.tasks.math.ExpressionTask;
 public class Main {
         static Map<String, Quiz> getQuizMap() {
                 Map<String, Quiz> quiz = new TreeMap<String, Quiz>();
-                quiz.put("Expressions Only with Exception", new Quiz(
+                quiz.put("Expressions exception only", new Quiz(
                                 new ExpressionTaskGenerator(
                                                 23,
                                                 10),
@@ -44,7 +44,7 @@ public class Main {
                                 3));
                 quiz.put("TextTask", new Quiz(
                                 new TextTaskGenerator(23, 45),
-                                5));
+                                1));
                 quiz.put("Group of Everything", new Quiz(
                                 new GroupTaskGenerator(
                                                 new EquationTaskGenerator(
@@ -141,5 +141,9 @@ public class Main {
 
                 System.out.println("Тест окончен! Ваша оценка: " + quiz.getMark());
                 scanner.close();
+                System.out.println("Кол - во некоректных вводов: " + quiz.getIncorrectInputNumber());
+                System.out.println("Кол - во правильных ответов: " + quiz.getCorrectAnswerNumber());
+                System.out.println("Кол - во неправильных ответов: " + quiz.getWrongAnswerNumber());
+
         }
 }
