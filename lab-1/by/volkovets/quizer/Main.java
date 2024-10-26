@@ -3,6 +3,7 @@ package by.volkovets.quizer;
 import java.util.TreeMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.EnumSet;
 
 import by.volkovets.quizer.generators.*;
 import by.volkovets.quizer.generators.math.*;
@@ -18,29 +19,39 @@ public class Main {
                 quiz.put("Expressions exception only", new Quiz(
                                 new ExpressionTaskGenerator(
                                                 23,
-                                                10),
+                                                10, EnumSet.of(MathTask.Operation.Difference)),
                                 3));
                 quiz.put("Expressions Only", new Quiz(
                                 new ExpressionTaskGenerator(
                                                 0,
-                                                10),
+                                                10,
+                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                MathTask.Operation.Multiplication)),
                                 3));
                 quiz.put("Equations only", new Quiz(
                                 new EquationTaskGenerator(
                                                 10,
-                                                50),
+                                                50, EnumSet.of(MathTask.Operation.Multiplication)),
                                 5));
                 quiz.put("Group of Equations and Expressions", new Quiz(
                                 new GroupTaskGenerator(
                                                 new EquationTaskGenerator(
                                                                 0,
-                                                                10),
+                                                                10,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Sum,
+                                                                                MathTask.Operation.Difference)),
                                                 new ExpressionTaskGenerator(
                                                                 10,
-                                                                50),
+                                                                50,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Multiplication,
+                                                                                MathTask.Operation.Division)),
                                                 new ExpressionTaskGenerator(
                                                                 0,
-                                                                10)),
+                                                                10,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Multiplication))),
                                 3));
                 quiz.put("TextTask", new Quiz(
                                 new TextTaskGenerator(23, 45),
@@ -49,10 +60,16 @@ public class Main {
                                 new GroupTaskGenerator(
                                                 new EquationTaskGenerator(
                                                                 0,
-                                                                10),
+                                                                10,
+                                                                EnumSet.of(MathTask.Operation.Division,
+                                                                                MathTask.Operation.Multiplication,
+                                                                                MathTask.Operation.Sum)),
                                                 new ExpressionTaskGenerator(
                                                                 0,
-                                                                50),
+                                                                50,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Multiplication,
+                                                                                MathTask.Operation.Division)),
                                                 new WhoLooseTaskGenerator(
                                                                 "Дима",
                                                                 "Лёха"),
@@ -73,7 +90,10 @@ public class Main {
                                                 false,
                                                 new WhoLooseTask("Миша", "Леша"),
                                                 new TextTask(0, 12, 13),
-                                                new EquationTaskGenerator(2, 23).generate(),
+                                                new EquationTaskGenerator(2, 23,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Sum))
+                                                                .generate(),
                                                 new ExpressionTask(MathTask.Operation.Difference, 23, 56)
 
                                 ), 3));
@@ -82,7 +102,10 @@ public class Main {
                                                 false,
                                                 new WhoLooseTask("Миша", "Леша"),
                                                 new TextTask(0, 15, 13),
-                                                new EquationTaskGenerator(2, 23).generate(),
+                                                new EquationTaskGenerator(2, 23,
+                                                                EnumSet.of(MathTask.Operation.Division,
+                                                                                MathTask.Operation.Multiplication))
+                                                                .generate(),
                                                 new ExpressionTask(MathTask.Operation.Difference, 23, 56)
 
                                 ), 5));
@@ -90,10 +113,14 @@ public class Main {
                                 new GroupTaskGenerator(
                                                 new EquationTaskGenerator(
                                                                 2,
-                                                                10),
+                                                                10,
+                                                                EnumSet.of(MathTask.Operation.Division,
+                                                                                MathTask.Operation.Multiplication)),
                                                 new ExpressionTaskGenerator(
                                                                 78,
-                                                                50),
+                                                                50,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Division)),
                                                 new TextTaskGenerator(2, 23)),
                                 5));
 
@@ -101,10 +128,14 @@ public class Main {
                                 new GroupTaskGenerator(
                                                 new EquationTaskGenerator(
                                                                 12,
-                                                                10),
+                                                                10,
+                                                                EnumSet.of(MathTask.Operation.Difference,
+                                                                                MathTask.Operation.Division)),
                                                 new ExpressionTaskGenerator(
                                                                 78,
-                                                                50)),
+                                                                50,
+                                                                EnumSet.of(MathTask.Operation.Sum,
+                                                                                MathTask.Operation.Multiplication))),
                                 1));
 
                 return quiz;

@@ -4,10 +4,11 @@ import by.volkovets.quizer.exceptions.MinIsBiggerThanMaxException;
 import by.volkovets.quizer.tasks.math.EquationTask;
 import by.volkovets.quizer.tasks.math.MathTask;
 import java.util.Random;
+import java.util.EnumSet;
 
 public class EquationTaskGenerator extends AbsrtactMathTaskGenerator<EquationTask> {
-    public EquationTaskGenerator(int Min, int Max) {
-        super(Min, Max);
+    public EquationTaskGenerator(int Min, int Max, EnumSet<MathTask.Operation> available_opearions) {
+        super(Min, Max, available_opearions);
     }
 
     @Override
@@ -19,29 +20,9 @@ public class EquationTaskGenerator extends AbsrtactMathTaskGenerator<EquationTas
         int first = random.nextInt(this.max - this.min + 1) + this.min;
         int second = random.nextInt(this.max - this.min + 1) + this.min;
 
-        MathTask.Operation operation;
-        int oper_index = random.nextInt(4);
-
-        switch (oper_index) {
-            case 0:
-                operation = MathTask.Operation.Difference;
-                break;
-            case 1:
-                operation = MathTask.Operation.Division;
-                if (second == 0) {
-                    second = 1;
-                }
-                break;
-            case 2:
-                operation = MathTask.Operation.Multiplication;
-                if (first == 0) {
-                    second = 0;
-                }
-                break;
-            default:
-                operation = MathTask.Operation.Sum;
-                break;
-        }
+        
+        int oper_index = random.nextInt(available_opearions.size());
+        MathTask.Operation operation = (MathTask.Operation) available_opearions.toArray()[oper_index];
 
         int X_Pos = random.nextInt(2);
 
