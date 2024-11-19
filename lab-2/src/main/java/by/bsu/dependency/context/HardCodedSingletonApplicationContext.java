@@ -3,6 +3,8 @@ package by.bsu.dependency.context;
 import by.bsu.dependency.annotation.Bean;
 import by.bsu.dependency.exceptions.CyclicDependencyException;
 
+// no post construct
+
 public class HardCodedSingletonApplicationContext extends AbstractApplicationContext {
     public HardCodedSingletonApplicationContext(Class<?>... beanClasses) throws CyclicDependencyException {
         for (Class<?> beanClass : beanClasses) {

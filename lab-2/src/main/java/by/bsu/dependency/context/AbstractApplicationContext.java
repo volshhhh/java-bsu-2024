@@ -25,12 +25,14 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
 
     protected <T> T instantiateBean(Class<T> beanClass) {
         try {
+            beanClass.getConstructor().setAccessible(true);
             return beanClass.getConstructor().newInstance();
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
                 | InstantiationException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     protected String getName(Class<?> clazz) {
         String tmp_name = clazz.getSimpleName();

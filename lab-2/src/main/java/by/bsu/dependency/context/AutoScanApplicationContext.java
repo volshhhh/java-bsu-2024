@@ -1,6 +1,8 @@
 package by.bsu.dependency.context;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Set;
 
 import org.reflections.Reflections;
@@ -8,9 +10,8 @@ import org.reflections.Reflections;
 import by.bsu.dependency.annotation.Bean;
 import by.bsu.dependency.annotation.BeanScope;
 import by.bsu.dependency.annotation.Inject;
+import by.bsu.dependency.annotation.PostConstruct;
 import by.bsu.dependency.exceptions.CyclicDependencyException;
-
-// в нем нет поддержки аннотаций @PostConstruct
 
 public class AutoScanApplicationContext extends AbstractApplicationContext {
     public AutoScanApplicationContext(String packageName) throws CyclicDependencyException {
@@ -50,6 +51,24 @@ public class AutoScanApplicationContext extends AbstractApplicationContext {
                         field.set(instance, dependency);
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException("Failed to inject dependency", e);
+                    }
+                }
+            }
+        });
+
+
+        beans.forEach((name, instance) -> {
+            Class<?> clazz = beanDefinitions.get(name);
+            Method[] methods = clazz.getDeclaredMethods();
+
+            // for @PostConstruct annotation
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(PostConstruct.class)) {
+                    method.setAccessible(true);
+                    try {
+                        method.invoke(instance);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new RuntimeException("Failed to invoke @PostConstruct method", e);
                     }
                 }
             }

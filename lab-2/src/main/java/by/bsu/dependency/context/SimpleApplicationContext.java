@@ -49,9 +49,15 @@ public class SimpleApplicationContext extends AbstractApplicationContext {
                     }
                 }
             }
+        });
+
+
+        beans.forEach((name, instance) -> {
+            Class<?> clazz = beanDefinitions.get(name);
+            Method[] methods = clazz.getDeclaredMethods();
 
             // for @PostConstruct annotation
-            for (Method method : clazz.getDeclaredMethods()) {
+            for (Method method : methods) {
                 if (method.isAnnotationPresent(PostConstruct.class)) {
                     method.setAccessible(true);
                     try {
@@ -63,11 +69,4 @@ public class SimpleApplicationContext extends AbstractApplicationContext {
             }
         });
     }
-
-    // public void getter() {
-    // beanDefinitions.forEach((beanName, beanClass) -> {
-    // System.out.println("Bean Name: " + beanName + ", Bean Class: " +
-    // beanClass.getName());
-    // });
-    // }
 }
