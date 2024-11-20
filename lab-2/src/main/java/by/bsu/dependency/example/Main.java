@@ -3,6 +3,7 @@ package by.bsu.dependency.example;
 import by.bsu.dependency.context.ApplicationContext;
 import by.bsu.dependency.context.SimpleApplicationContext;
 import by.bsu.dependency.exceptions.NoSuchBeanDefinitionException;
+import by.bsu.dependency.context.HardCodedSingletonApplicationContext;
 
 public class Main {
 
@@ -47,5 +48,18 @@ public class Main {
         } catch (NoSuchBeanDefinitionException e) {
             System.out.println("Exception: Bean randomBean was not found");
         }
+        ApplicationContext applicationContext = new HardCodedSingletonApplicationContext(
+                FirstBean.class, OtherBean.class
+        );
+        applicationContext.start();
+
+        FirstBean firstBean = (FirstBean) applicationContext.getBean("firstBean");
+        OtherBean otherBean = (OtherBean) applicationContext.getBean("otherBean");
+
+        firstBean.doSomething();
+        otherBean.doSomething();
+
+        // Метод падает, так как в классе HardCodedSingletonApplicationContext не реализовано внедрение зависимостей
+        // otherBean.doSomethingWithFirst();
     }
 }

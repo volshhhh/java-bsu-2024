@@ -1,5 +1,6 @@
 package by.bsu.dependency.context;
 
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
     protected final Map<String, Class<?>> beanDefinitions = new HashMap<>();
     protected final Map<String, Object> beans = new HashMap<>();
     protected ContextStatus IsStarted = ContextStatus.NOT_STARTED;
+
+public abstract class AbstractApplicationContext implements ApplicationContext {
 
     protected enum ContextStatus {
         NOT_STARTED,
@@ -214,5 +217,4 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
             return false;
         }
     }
-
 }

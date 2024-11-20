@@ -2,8 +2,6 @@ package by.bsu.dependency.context;
 
 public interface ApplicationContext {
 
-
-
     /**
      * Стартует контекст. При вызове этого метода происходит создание всех необходимых объектов, объявленных
      * {@code SINGLETON} бинами.
